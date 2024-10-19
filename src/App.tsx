@@ -21,6 +21,11 @@ function App() {
 
   return (
     <main>
+      {/* Add your custom header here */}
+      <header>
+        <h1>TresAI under construction</h1>
+      </header>
+
       <h1>My todos</h1>
       <button onClick={createTodo}>+ new</button>
       <ul>
@@ -35,7 +40,7 @@ function App() {
           Review next step of this tutorial.
         </a>
       </div>
-     <button onClick={signOut}>Sign out</button>
+      <button onClick={signOut}>Sign out</button>
     </main>
   );
 }
