@@ -41,6 +41,7 @@ function App() {
         </a>
       </div>
       <button onClick={signOut}>Sign out</button>
+     <img src="/logo.png" alt="Logo" className="corner-logo" />
     </main>
   );
 }

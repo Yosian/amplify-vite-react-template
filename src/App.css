@@ -41,10 +41,17 @@
   color: #888;
 }
 
-/* Add the header styles here */
 header h1 {
   font-size: 2.5em;
-  color: #ff6347; /* Tomato color */
+  color: #ff6347;
   text-align: center;
   margin-top: 20px;
+}
+.corner-logo {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  width: 50px; /* Adjust the size of the logo */
+  height: auto;
+  z-index: 1000; /* Ensure the logo appears above other content */
 }
