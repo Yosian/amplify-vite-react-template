@@ -26,7 +26,7 @@ function App() {
         <h1>TresAI under construction</h1>
       </header>
 
-      <h1>My todos</h1>
+      <h1>My Type Something Here</h1>
       <button onClick={createTodo}>+ new</button>
       <ul>
         {todos.map((todo) => (
