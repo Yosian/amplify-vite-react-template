@@ -1,12 +1,12 @@
 import { useEffect, useState } from "react";
-import { withAuthenticator } from '@aws-amplify/ui-react';
+import { withAuthenticator, useAuthenticator } from '@aws-amplify/ui-react'; // Ensure this is correctly imported
 import type { Schema } from "../amplify/data/resource";
 import { generateClient } from "aws-amplify/data";
 
 const client = generateClient<Schema>();
 
 function App() {
-  const { signOut } = useAuthenticator();
+  const { signOut } = useAuthenticator(); // useAuthenticator hook to get signOut function
   const [todos, setTodos] = useState<Array<Schema["Todo"]["type"]>>([]);
 
   useEffect(() => {
