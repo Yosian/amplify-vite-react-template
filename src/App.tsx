@@ -1,12 +1,11 @@
 import { useEffect, useState } from "react";
-import { useAuthenticator } from '@aws-amplify/ui-react';
+import { withAuthenticator, AmplifySignOut } from '@aws-amplify/ui-react';
 import type { Schema } from "../amplify/data/resource";
 import { generateClient } from "aws-amplify/data";
 
 const client = generateClient<Schema>();
 
 function App() {
-  const { signOut } = useAuthenticator();
   const [todos, setTodos] = useState<Array<Schema["Todo"]["type"]>>([]);
 
   useEffect(() => {
@@ -21,7 +20,6 @@ function App() {
 
   return (
     <main>
-      {/* Add your custom header here */}
       <header>
         <h1>TresAI under construction</h1>
       </header>
@@ -40,10 +38,19 @@ function App() {
           Review next step of this tutorial.
         </a>
       </div>
-      <button onClick={signOut}>Sign out</button>
-     <img src="/logo.png" alt="Logo" className="corner-logo" />
+      <AmplifySignOut />
+      <img src="/logo.png" alt="Logo" className="corner-logo" />
     </main>
   );
 }
 
-export default App;
+export default withAuthenticator(App, {
+  signUpConfig: {
+    header: 'Tres.AI',
+  },
+  components: {
+    SignIn: {
+      Header: () => <h1 className="login-header">Tres.AI</h1>
+    },
+  },
+});
