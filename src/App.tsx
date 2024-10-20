@@ -2,7 +2,7 @@ import React from 'react';
 import { useEffect, useState } from "react";
 import type { Schema } from "../amplify/data/resource";
 import { generateClient } from "aws-amplify/data";
-import { AuthUser } from '@aws-amplify/ui-react/dist/types/components/Authenticator/Authenticator';
+import { AuthUser } from '@aws-amplify/ui-react';
 
 const client = generateClient<Schema>();
 
@@ -11,7 +11,7 @@ interface AppProps {
   user?: AuthUser;
 }
 
-function App({ signOut, user }: AppProps) {
+const App: React.FC<AppProps> = ({ signOut, user }) => {
   const [todos, setTodos] = useState<Array<Schema["Todo"]["type"]>>([]);
 
   useEffect(() => {
