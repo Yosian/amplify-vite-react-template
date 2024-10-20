@@ -1,12 +1,12 @@
 import { useEffect, useState } from "react";
-import { withAuthenticator, useAuthenticator } from '@aws-amplify/ui-react'; // Ensure this is correctly imported
+import { withAuthenticator, useAuthenticator, AmplifySignOut, Authenticator } from '@aws-amplify/ui-react';
 import type { Schema } from "../amplify/data/resource";
 import { generateClient } from "aws-amplify/data";
 
 const client = generateClient<Schema>();
 
 function App() {
-  const { signOut } = useAuthenticator(); // useAuthenticator hook to get signOut function
+  const { signOut } = useAuthenticator();
   const [todos, setTodos] = useState<Array<Schema["Todo"]["type"]>>([]);
 
   useEffect(() => {
@@ -30,8 +30,7 @@ function App() {
       <ul>
         {todos.map((todo) => (
           <li key={todo.id}>{todo.content}</li>
-        ))}
-      </ul>
+        ))}</ul>
       <div>
         🥳 App successfully hosted. Try creating a new todo.
         <br />
@@ -45,4 +44,31 @@ function App() {
   );
 }
 
-export default withAuthenticator(App);
+const CustomSignInHeader = () => (
+  <div>
+    <h1 style={{ textAlign: "center" }}>Tres.AI</h1>
+    <p style={{ textAlign: "center" }}>Welcome to Tres.AI</p>
+  </div>
+);
+
+const CustomSignInFooter = () => (
+  <div style={{ textAlign: "right", padding: "10px" }}>
+    <img src="/logo.png" alt="Logo" style={{ width: "50px", height: "50px" }} />
+  </div>
+);
+
+function CustomAuthenticator() {
+  return (
+    <Authenticator
+      loginMechanisms={['username']}
+      components={{
+        Header: CustomSignInHeader,
+        Footer: CustomSignInFooter
+      }}
+    >
+      <App />
+    </Authenticator>
+  );
+}
+
+export default CustomAuthenticator;
