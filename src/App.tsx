@@ -1,3 +1,4 @@
+import React from 'react';
 import { useEffect, useState } from "react";
 import { Authenticator, useTheme, View, Image, Text } from '@aws-amplify/ui-react';
 import '@aws-amplify/ui-react/styles.css';
@@ -5,6 +6,11 @@ import type { Schema } from "../amplify/data/resource";
 import { generateClient } from "aws-amplify/data";
 
 const client = generateClient<Schema>();
+
+interface AppProps {
+  signOut?: () => void;
+  user?: any;
+}
 
 function App() {
   const [todos, setTodos] = useState<Array<Schema["Todo"]["type"]>>([]);
@@ -47,6 +53,7 @@ function App() {
         <main>
           <header>
             <h1>TresAI under construction</h1>
+	    <p>Welcome, {user?.username}</p>	
           </header>
 
           <h1>Type Something Here</h1>
