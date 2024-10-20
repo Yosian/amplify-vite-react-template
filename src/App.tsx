@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Authenticator } from '@aws-amplify/ui-react';
+import { Authenticator, useTheme, View, Image, Text } from '@aws-amplify/ui-react';
 import '@aws-amplify/ui-react/styles.css';
 import type { Schema } from "../amplify/data/resource";
 import { generateClient } from "aws-amplify/data";
@@ -8,6 +8,7 @@ const client = generateClient<Schema>();
 
 function App() {
   const [todos, setTodos] = useState<Array<Schema["Todo"]["type"]>>([]);
+  const { tokens } = useTheme();
 
   useEffect(() => {
     client.models.Todo.observeQuery().subscribe({
@@ -19,25 +20,29 @@ function App() {
     client.models.Todo.create({ content: window.prompt("Todo content") });
   }
 
+  const components = {
+    Header() {
+      return (
+        <View textAlign="center" padding={tokens.space.large}>
+          <Image
+            alt="Tres.AI logo"
+            src="/logo.png"
+            height="50px"
+          />
+          <Text
+            padding={`${tokens.space.xl} 0 0 ${tokens.space.xl}`}
+            fontSize={tokens.fontSizes.xxxxl}
+            fontWeight={tokens.fontWeights.bold}
+          >
+            Tres.AI
+          </Text>
+        </View>
+      );
+    },
+  };
+
   return (
-    <Authenticator
-      components={{
-        Header() {
-          return (
-            <div style={{ padding: '20px', textAlign: 'center' }}>
-              <h1>Tres.AI</h1>
-            </div>
-          );
-        },
-        Footer() {
-          return (
-            <div style={{ position: 'fixed', bottom: '10px', right: '10px' }}>
-              <img src="/logo.png" alt="Logo" style={{ width: '50px', height: 'auto' }} />
-            </div>
-          );
-        },
-      }}
-    >
+    <Authenticator components={components}>
       {({ signOut }) => (
         <main>
           <header>
